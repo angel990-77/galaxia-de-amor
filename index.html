@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galaxia de Amor 🌌</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    height: 100vh;
+    background: radial-gradient(circle at center, #0a0015 0%, #000 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+  }
+
+  /* Fondo estrellado */
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .stars span {
+    position: absolute;
+    display: block;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2s infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Centro luminoso */
+  .sun {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #ffd966, #ff8800);
+    border-radius: 50%;
+    box-shadow: 0 0 50px 20px rgba(255,180,50,0.6);
+    z-index: 2;
+  }
+
+  /* Orbita base */
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 50%;
+    transform-origin: center center;
+    animation: rotateOrbit linear infinite;
+  }
+  @keyframes rotateOrbit {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* Planetas */
+  .planet {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  }
+
+  /* Mensaje central */
+  .mensaje {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffe6f7;
+    text-shadow: 0 0 20px #ff4dc4, 0 0 40px #ff0080;
+    animation: brillo 3s ease-in-out infinite;
+    z-index: 3;
+  }
+  @keyframes brillo {
+    0%, 100% { opacity: 0.8; text-shadow: 0 0 20px #ff4dc4; }
+    50% { opacity: 1; text-shadow: 0 0 40px #ff0080; }
+  }
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="mensaje" id="mensaje">Eres el centro de mi galaxia 💞</div>
+  <div class="sun"></div>
+
+<script>
+  // 🌠 Estrellas
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 150; i++) {
+    const s = document.createElement('span');
+    s.style.top = Math.random() * 100 + '%';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 2 + 's';
+    stars.appendChild(s);
+  }
+
+  // 🪐 Crear órbitas con planetas
+  const colores = ['#6fa8dc', '#b4a7d6', '#93c47d', '#f6b26b', '#ff7bac', '#76a5af', '#ffd966'];
+  const cuerpo = document.body;
+  const numPlanetas = 6;
+
+  for (let i = 0; i < numPlanetas; i++) {
+    const orbit = document.createElement('div');
+    orbit.className = 'orbit';
+    const size = 180 + i * 60; // tamaño de la órbita
+    orbit.style.width = size + 'px';
+    orbit.style.height = size + 'px';
+    orbit.style.animationDuration = (10 + i * 4) + 's'; // velocidad de rotación
+
+    const planet = document.createElement('div');
+    planet.className = 'planet';
+    const pSize = 15 + Math.random() * 15;
+    planet.style.width = pSize + 'px';
+    planet.style.height = pSize + 'px';
+    planet.style.background = colores[i % colores.length];
+    planet.style.boxShadow = `0 0 20px ${colores[i % colores.length]}`;
+    planet.style.top = '50%';
+    orbit.appendChild(planet);
+    cuerpo.appendChild(orbit);
+  }
+</script>
+</body>
+</html>
